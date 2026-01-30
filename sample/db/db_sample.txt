@@ -1,0 +1,119 @@
+Table users {
+  id int [pk, increment]
+  username varchar [unique, not null]
+  email varchar [unique, not null]
+  password varchar [not null]
+  full_name varchar
+  storage_id int
+  storage_key binary
+  created_at datetime
+  updated_at datetime
+}
+
+Table storage {
+  id int [pk, increment]
+  avt_url varchar
+  storage_key binary
+  type varchar
+  create_at timestamp
+}
+
+Table accounts_store {
+  account_id int
+  storage_id int
+
+}
+
+Table account {
+  id int [pk, increment]
+  plaform varchar [not null]
+  username varchar [not null]
+  password varchar [not null]
+  noted varchar
+  created_at datetime
+}
+
+Table images_store {
+  id int [pk, increment]
+  task_id int
+  storage_id int
+  image_url varchar
+  create_at timestamp
+}
+
+Table task {
+  id int [pk, increment]
+  account_id int [not null]
+  name varchar [not null]
+  content varchar
+  deadline datetime
+  price float
+  state float
+  is_done bool
+  client_num varchar
+  client_mail varchar
+  noted varchar
+  create_at timestamp
+}
+
+Table one_income {
+  total_income int
+  task_id int
+}
+
+Table total_income {
+  id int [pk,increment]
+  create_at timestamp
+  total float
+  from varchar //task_name
+  noted varchar
+}
+
+Table payment_store {
+  storage_id int
+  payment_id int
+}
+
+Table payment {
+  id int [pk, increment]
+  bank_name varchar [not null]
+  card_code varchar [not null]
+  content varchar 
+}
+
+Table work_space_manage {
+  task_id int
+  work_space_id int
+}
+
+Table work_space {
+  id int [pk, increment]
+  mini_task varchar
+  content varchar
+  images_url id
+  loading float
+  is_done bool
+}
+
+/* Relationships */
+//Ref: users.id < transactions.user_id
+Ref: storage.id < users.storage_id
+
+//account manage
+Ref: storage.id < accounts_store.storage_id
+Ref: account.id < accounts_store.account_id
+
+//user->task->images->workspace
+Ref: users.id < task.account_id
+Ref: task.id < images_store.task_id
+Ref: storage.id < images_store.storage_id
+Ref: task.id < work_space_manage.task_id
+Ref: work_space.id < work_space_manage.work_space_id
+
+//task -> income -> asset
+Ref: task.id < one_income.task_id
+Ref: total_income.id < one_income.total_income
+
+//payment
+Ref: storage.id < payment_store.storage_id
+Ref: payment.id < payment_store.payment_id

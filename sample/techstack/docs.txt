@@ -1,0 +1,40 @@
+backend: 
+- python flask
+- event-driven
+- mvc architecture
+- mail service for notification and register, forgot password
+- user authentication
+
+frontend:
+- html, css, js, reactjs, tailwindcss, nextjs
+- clone UI clickup.com
+- responsive design
+- dark/light mode
+
+database:
+- postgresql
+- supabase
+
+server:
+- digitalocean
+
+deploy:
+- fe: vercel
+- be: digitalocean
+
+authentication:
+- jwt
+
+image storage:
+- cloudinary
+
+features:
+- use_case 
+
+ai_integration:
+- support AI assistants: antigravity, copilot, cursor
+- expose task API for AI reference (MCP protocol)
+- allow AI to query task details, status, deadline
+- allow AI to update task progress
+- provide context for AI coding workflow
+
